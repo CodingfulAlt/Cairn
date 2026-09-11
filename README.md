@@ -87,4 +87,4 @@ Cairn is designed with complete user privacy in mind:
 
 ## Author
 
-Created by [CodingfulAlt](https://github.com/CodingfulAlt).
+Created by [BM/CodingfulAlt](https://github.com/CodingfulAlt).
