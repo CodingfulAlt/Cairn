@@ -1,145 +1,154 @@
-# 🌿 HabitHero — Android Приложение за изграждане на навици
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="Cairn" width="100%" />
+</p>
 
-## 💡 Идея
-**HabitHero** е мобилно приложение, което помага на потребителите да създават, следят и поддържат положителни навици в ежедневието си.  
-Всеки навик има име, описание, дневна цел и визуално проследяване на напредъка. Приложението е изградено по **MVVM архитектура**, използва **Room** база данни, **ViewModel**, **LiveData**, и **Hilt** за dependency injection.
+<p align="center">
+  <a href="https://github.com/CodingfulAlt/Cairn/actions/workflows/ci.yml"><img src="https://github.com/CodingfulAlt/Cairn/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <img src="https://img.shields.io/badge/Kotlin-2.3-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin" />
+  <img src="https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" />
+  <img src="https://img.shields.io/badge/minSdk-26-3DDC84?logo=android&logoColor=white" alt="minSdk 26" />
+</p>
 
----
+**Cairn** is a habit tracker for Android. Hikers stack cairns one stone at a time to mark the trail, and that's the idea here too: every check-in adds a stone, and small daily wins pile up into something that lasts.
 
-## ⚙️ Как работи
-Потребителят може да добавя, редактира, изтрива и споделя навици.  
-Всеки запис се съхранява локално в **Room база данни**, която осигурява бърз достъп и постоянство на данните.  
-**ViewModel** управлява логиката между интерфейса и данните, докато **LiveData** автоматично обновява UI при промени.  
-Приложението включва нотификации за напомняне чрез **BroadcastReceiver** и **AlarmManager**.  
-Потребителят може да активира или изключва известията в настройките.  
-Използван е **LeakCanary** за откриване на memory leaks и **R8 minify** за оптимизация на крайния APK.  
-Тестовото покритие е осигурено чрез **JUnit5**, **Mockito** и **Espresso UI Tests**, покриващи над 15% от логиката.
+It's fully offline, has no account and no ads, and runs on phones, foldables and tablets.
 
----
+## Screenshots
 
-## 🧱 Архитектура
-**Архитектурен модел:** MVVM (Model–View–ViewModel)  
-**Основни слоеве:**
-- `data` → Room Entity, DAO, Repository  
-- `ui` → Activity, Adapter, View Binding  
-- `viewmodel` → HabitViewModel с LiveData  
-- `di` → Hilt модули за dependency injection  
+| Today | Dark mode | Habit details | Insights |
+| :---: | :---: | :---: | :---: |
+| <img src="docs/screenshots/today-light.png" width="200" alt="Today screen" /> | <img src="docs/screenshots/today-dark.png" width="200" alt="Today screen in dark mode" /> | <img src="docs/screenshots/detail.png" width="200" alt="Habit details" /> | <img src="docs/screenshots/insights.png" width="200" alt="Insights" /> |
 
-Диаграма:
+| New habit | Habits | Onboarding |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/editor.png" width="200" alt="Habit editor" /> | <img src="docs/screenshots/habits.png" width="200" alt="All habits" /> | <img src="docs/screenshots/onboarding.png" width="200" alt="Onboarding" /> |
+
+On tablets and in landscape the bottom bar turns into a navigation rail and screens switch to two columns:
+
+<img src="docs/screenshots/tablet.png" alt="Cairn on a tablet" width="100%" />
+
+The screenshots are rendered straight from the app's composables by the screenshot tests, so they always match the code.
+
+## Features
+
+- **Today view** with a week strip, a progress card and a little stone stack that grows as you check habits off. Finish everything and you get confetti.
+- **Tap to check in, long press to undo.** Habits can have a daily goal (drink water 6 times) and the ring fills up as you go.
+- **Flexible schedules**: every day, weekdays, weekends or any days you pick. Days off never break a streak.
+- **Streaks, best streaks and completion rates** for every habit, plus a 20 week activity heatmap.
+- **Insights** across all habits: perfect days, a 7 day chart, an 18 week heatmap and a streak leaderboard.
+- **Reminders** per habit with a "Done" button right in the notification, and an optional evening check-in that only shows up if something is still open.
+- **Past days can be edited** from the week strip, in case you forgot to log something yesterday.
+- **30 icons and 8 colors**, archive instead of delete, share a habit.
+- **Light and dark theme**, or follow the system.
+- **English and Bulgarian**, with per-app language support on Android 13+.
+- **Adaptive layout** for phones, foldables, tablets and landscape.
+
+## Tech stack
+
+| | |
+| --- | --- |
+| Language | Kotlin 2.3 |
+| UI | Jetpack Compose, Material 3, Navigation Compose (type-safe routes) |
+| Architecture | MVVM with unidirectional data flow, `StateFlow` UI state |
+| DI | Hilt (KSP) |
+| Storage | Room for habits and check-ins, DataStore for preferences |
+| Background | AlarmManager + broadcast receivers, re-armed after reboot and time changes |
+| Testing | JUnit, kotlinx-coroutines-test, Robolectric + Roborazzi screenshot tests, Room instrumented tests |
+| Tooling | Gradle version catalog, ktlint, Android Lint, R8, LeakCanary (debug), GitHub Actions |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    subgraph UI
+        S[Compose screens] -->|events| VM[ViewModels]
+        VM -->|StateFlow| S
+    end
+    VM --> HR[HabitRepository]
+    VM --> PR[UserPreferencesRepository]
+    HR --> DB[(Room)]
+    PR --> DS[(DataStore)]
+    VM --> RS[ReminderScheduler]
+    RS --> AM[AlarmManager]
+    AM --> RR[ReminderReceiver]
+    RR --> HR
 ```
-View (Activity) → ViewModel → Repository → DAO → Room Database
+
+Screens only talk to their ViewModel. ViewModels combine repository flows into a single immutable UI state. Streak and progress math lives in plain Kotlin (`core/domain`) so it's easy to unit test without Android.
+
+## Project structure
+
+```
+app/src/main/kotlin/io/github/codingfulalt/cairn
+├── CairnApplication.kt, MainActivity.kt
+├── core
+│   ├── common        app-wide coroutine scope, clock
+│   ├── data          repositories and their Hilt bindings
+│   ├── database      Room database, entities, DAOs
+│   ├── designsystem  theme, colors, type, reusable components
+│   ├── domain        streaks, daily progress, reminder timing
+│   ├── model         plain Kotlin models
+│   ├── notifications notifier, alarm scheduler, receivers
+│   └── ui            shared composables and formatting helpers
+├── feature
+│   ├── onboarding
+│   ├── today
+│   ├── habits
+│   ├── detail
+│   ├── editor
+│   ├── insights
+│   └── settings
+├── navigation        routes, top-level destinations, NavHost
+└── ui                app shell: bottom bar, navigation rail
 ```
 
----
+## Getting started
 
-## 👣 Потребителски поток
-1. Начален екран – списък с навици  
-2. Добавяне на нов навик (име, описание, цел)  
-3. Редактиране / изтриване на съществуващ  
-4. Споделяне на навик (share intent)  
-5. Достъп до Настройки – включване/изключване на известия  
+You need **Android Studio Otter (2025.2.1) or newer** and **JDK 17+** (the one bundled with Android Studio works).
 
----
-
-## 🧪 Тестове
-### Unit Tests
-- `HabitRepositoryTest` – валидира insert, update, delete операции  
-- `HabitViewModelTest` – проверява, че ViewModel извиква правилно Repository  
-### Espresso UI Tests
-- `HabitMainFlowTest` – симулира добавяне на нов навик в UI  
-- `HabitSettingsFlowTest` – тества превключване на настройките  
-✔️ Изпълняват се с `./gradlew test` и `./gradlew connectedAndroidTest`
-
----
-
-## 🧰 Технологии и зависимости
-
-| Технология | Версия | Роля |
-|-------------|--------|------|
-| Kotlin | 1.9+ | Основен език |
-| Android SDK | 36 | Target SDK |
-| Room | 2.6.1 | Локална база данни |
-| Hilt (DI) | 2.51.1 | Dependency Injection |
-| Espresso | 3.6.0 | UI тестове |
-| Mockito | 5.1.0 | Mock зависимости |
-| LeakCanary | 2.12 | Memory leak детекция |
-| ktlint / detekt | 11.6.0 / 1.23.0 | Code style проверки |
-
----
-
-## 🚀 Стъпки за стартиране
-1. Клонирай проекта:
+1. Clone the repo
    ```bash
-   git clone https://github.com/CodingfulAlt/MobileApps2025-2301321069.git
+   git clone https://github.com/CodingfulAlt/Cairn.git
    ```
-2. Отвори в **Android Studio**
-3. Изпълни командата:
-   ```bash
-   ./gradlew assembleRelease
-   ```
-4. APK ще се генерира в:
-   ```
-   app/build/outputs/apk/release/app-release.apk
-   ```
-5. Алтернативно – използвай вече качения:
-   [`/apk/app-release.apk`](./apk/app-release.apk)
+2. Open the folder in Android Studio and let Gradle sync.
+3. Pick an emulator or a device and press **Run**.
 
----
+From the command line:
 
-## 🔑 Signing Details (debug / custom key)
-| Параметър | Стойност |
-|------------|----------|
-| **Key alias:** | `key0` |
-| **Key password:** | `775544` |
-| **Key store password:** | `775544` |
-| **Key store path:** | `/MobileApps2025-2301321069/habitkey.jks` |
+```bash
+./gradlew installDebug
+```
 
----
+The debug build installs as `io.github.codingfulalt.cairn.debug`, so it can live next to a release build.
 
-## 🧪 Тестови акаунти
-| Поле | Примерна стойност |
-|------|-------------------|
-| Потребителско име | demo@habithero.bg |
-| Парола | 123456 |
+## Tests and checks
 
----
+```bash
+./gradlew testDebugUnitTest         # unit and screenshot tests
+./gradlew recordRoborazziDebug      # re-render the images in docs/screenshots
+./gradlew connectedDebugAndroidTest # Room tests, needs a device or emulator
+./gradlew ktlintCheck lintDebug     # code style and Android Lint
+```
 
-## 🖼️ Скрийншотове
+The same checks run on every push and pull request through GitHub Actions.
 
-| Екран | Преглед |
-|--------|----------|
-| Начален екран | ![home](./docs/images/home.png) |
-| Добавяне на навик | ![add](./docs/images/add.png) |
-| Описание | ![description](./docs/images/description.png) |
-| Редактиране | ![edit](./docs/images/edit.png) |
-| Изтриване | ![delete](./docs/images/delete.png) |
-| Тъмен режим | ![dark](./docs/images/enable_darktheme.png) |
-| Известия | ![notif](./docs/images/enable_notifications.png) |
-| Настройки | ![settings](./docs/images/settings.png) |
-| Споделяне | ![share](./docs/images/share.png) |
+## Release builds
 
----
+Signing info never goes into the repo. Copy `keystore.properties.example` to `keystore.properties`, fill it in and point it at your keystore, then:
 
-## 📦 APK файл
-Готовият подписан APK е достъпен тук:  
-👉 [**app-release.apk**](./apk/app-release.apk)
+```bash
+./gradlew assembleRelease
+```
 
-Размер: ≤ 60 MB  
-Подписан с ключ: `key0` (`775544`)
+Without that file the release APK is built unsigned. Signed APKs are published on the [Releases](https://github.com/CodingfulAlt/Cairn/releases) page.
 
----
+## Roadmap
 
-## 🧹 Code Quality
-- Проверен с `ktlintCheck` и `detekt` — **0 нарушения**  
-- LeakCanary интегриран — **няма memory leaks**  
-- `minifyEnabled true` и `R8` активирани за release build  
-- Unit тестово покритие: **100% success (JUnit + Mockito)**  
-- Espresso тестове: **100% success на API 34**
+- Home screen widget
+- Export and import backups
+- Notes on individual check-ins
+- Wear OS tile
 
----
+## Author
 
-## 🧩 Автор
-👤 **Борислав Минков**  
-📧 stu2301321069@uni-plovdiv.bg  
-📍 Пловдивски университет „Паисий Хилендарски“  
-ФМИ — Мобилни приложения 2025  
+Made by [CodingfulAlt](https://github.com/CodingfulAlt).

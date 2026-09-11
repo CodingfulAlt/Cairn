@@ -1,45 +1,35 @@
-# Gradle
+# Gradle / Kotlin
 .gradle/
+.kotlin/
 build/
 
-# Local configuration (SDK path, etc)
+# Local config
 local.properties
+keystore.properties
 
-# Log/OS files
-*.log
-
-# Android Studio generated files and folders
+# Android Studio / IntelliJ
+.idea/
+*.iml
 captures/
 .externalNativeBuild/
 .cxx/
+
+# Build outputs (APKs go to GitHub Releases)
 *.apk
-# allow the release apk for classroom
-!apk/app-release.apk
 *.aab
+*.ap_
 output-metadata.json
+app/release/
 
-# IntelliJ / Android Studio
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
-
-# Keystore files
+# Signing keys
 *.jks
 *.keystore
 
-# Google Services (API keys, Firebase, etc.)
+# Secrets
 google-services.json
 
-# Unit test / coverage reports
+# Logs, dumps, OS noise
+*.log
 *.hprof
-*.orig
-*.tmp
-
-# Misc
 .DS_Store
 Thumbs.db
-
-# Ignore release build profiles
-app/release/

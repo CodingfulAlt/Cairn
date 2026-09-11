@@ -1,11 +1,11 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
-
-    // Hilt Gradle plugin (за DI)
-    id("com.google.dagger.hilt.android") version "2.51.1" apply false
-    id("org.jlleitschuh.gradle.ktlint") version "11.6.0" apply false
-    id("io.gitlab.arturbosch.detekt") version "1.23.0"
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.room) apply false
+    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.roborazzi) apply false
 }

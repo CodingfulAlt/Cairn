@@ -1,6 +1,187 @@
-<resources>
-    <string name="app_name">HabitHero</string>
-    <string name="habit_name_hint">Име на навика</string>
-    <string name="habit_description_hint">Описание</string>
-    <string name="habit_goal_per_day_hint">Цел на ден (брой пъти)</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">Cairn</string>
+
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_share">Share</string>
+    <string name="action_archive">Archive</string>
+    <string name="action_restore">Restore</string>
+    <string name="action_back">Back</string>
+    <string name="action_close">Close</string>
+    <string name="action_more">More options</string>
+    <string name="action_new_habit">New habit</string>
+    <string name="action_open_settings">Settings</string>
+
+    <string name="nav_today">Today</string>
+    <string name="nav_habits">Habits</string>
+    <string name="nav_insights">Insights</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="greeting_morning">Good morning</string>
+    <string name="greeting_afternoon">Good afternoon</string>
+    <string name="greeting_evening">Good evening</string>
+    <string name="greeting_night">Up late</string>
+    <string name="greeting_named">%1$s, %2$s</string>
+
+    <string name="today_stack_label">Today\'s stack</string>
+    <string name="today_stack_count">%1$d of %2$d</string>
+    <string name="today_stack_caption">habits done</string>
+    <string name="today_stack_caption_past">habits done that day</string>
+    <string name="today_perfect_title">Perfect day</string>
+    <string name="today_perfect_body">Every stone is in place.</string>
+    <string name="today_rest_title">Rest day</string>
+    <string name="today_rest_body">Nothing is scheduled for this day.</string>
+    <string name="today_empty_title">Build your first cairn</string>
+    <string name="today_empty_body">Pick one small thing you want to do every day. That\'s your first stone.</string>
+    <string name="today_empty_action">Create a habit</string>
+    <string name="today_section_todo">To do</string>
+    <string name="today_section_done">Done</string>
+    <string name="today_previous_week">Previous week</string>
+    <string name="today_next_week">Next week</string>
+    <string name="today_jump_to_today">Jump to today</string>
+    <string name="habit_progress_today" tools:ignore="PluralsCandidate">%1$d of %2$d today</string>
+    <string name="habit_check_in">Check in %1$s</string>
+    <string name="habit_undo_check_in">Undo</string>
+
+    <plurals name="streak_days">
+        <item quantity="one">%d-day streak</item>
+        <item quantity="other">%d-day streak</item>
+    </plurals>
+    <plurals name="days_count">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <plurals name="goal_per_day">
+        <item quantity="one">Once a day</item>
+        <item quantity="other">%d times a day</item>
+    </plurals>
+
+    <string name="schedule_every_day">Every day</string>
+    <string name="schedule_weekdays">Weekdays</string>
+    <string name="schedule_weekends">Weekends</string>
+
+    <string name="editor_title_new">New habit</string>
+    <string name="editor_title_edit">Edit habit</string>
+    <string name="editor_name_label">Name</string>
+    <string name="editor_name_placeholder">Read 10 pages</string>
+    <string name="editor_name_error">Give it a name</string>
+    <string name="editor_note_label">Note (optional)</string>
+    <string name="editor_note_placeholder">Why does this matter to you?</string>
+    <string name="editor_icon">Icon</string>
+    <string name="editor_icon_option">Icon %1$d of %2$d</string>
+    <string name="editor_color">Color</string>
+    <string name="editor_goal">Daily goal</string>
+    <string name="editor_goal_decrease">Lower the goal</string>
+    <string name="editor_goal_increase">Raise the goal</string>
+    <string name="editor_schedule">Repeat on</string>
+    <string name="editor_schedule_error">Pick at least one day</string>
+    <string name="editor_reminder">Reminder</string>
+    <string name="editor_reminder_body">Get a notification at a set time</string>
+    <string name="editor_pick_time">Pick a time</string>
+    <string name="editor_preview">Preview</string>
+    <string name="notifications_blocked">Notifications are turned off for Cairn</string>
+
+    <string name="color_moss">Moss</string>
+    <string name="color_mint">Mint</string>
+    <string name="color_sky">Sky</string>
+    <string name="color_lavender">Lavender</string>
+    <string name="color_rose">Rose</string>
+    <string name="color_peach">Peach</string>
+    <string name="color_sand">Sand</string>
+    <string name="color_coral">Coral</string>
+
+    <string name="detail_today">Today</string>
+    <string name="detail_current_streak">Current streak</string>
+    <string name="detail_best_streak">Best streak</string>
+    <string name="detail_rate">Last 30 days</string>
+    <string name="detail_check_ins">Check-ins</string>
+    <string name="detail_history">History</string>
+    <plurals name="detail_history_weeks">
+        <item quantity="one">Last %d week</item>
+        <item quantity="other">Last %d weeks</item>
+    </plurals>
+    <string name="legend_less">Less</string>
+    <string name="legend_more">More</string>
+    <string name="detail_delete_title">Delete \"%1$s\"?</string>
+    <string name="detail_delete_body">The habit and its whole history will be gone. This can\'t be undone.</string>
+    <string name="detail_archived">Archived</string>
+    <string name="detail_missing">This habit doesn\'t exist anymore.</string>
+    <string name="detail_add_check_in">Add a check-in</string>
+    <string name="detail_remove_check_in">Remove a check-in</string>
+    <string name="share_habit">I\'m building a habit with Cairn: %1$s. %2$s so far.</string>
+    <string name="share_habit_chooser">Share habit</string>
+
+    <string name="habits_title">Habits</string>
+    <string name="habits_active">Active</string>
+    <string name="habits_archived">Archived</string>
+    <string name="habits_empty_title">No habits yet</string>
+    <string name="habits_empty_body">Tap + to add your first one.</string>
+    <string name="habits_archived_empty_title">Nothing archived</string>
+    <string name="habits_archived_empty_body">Archived habits keep their history and can be restored anytime.</string>
+    <string name="habits_best">Best %1$d</string>
+
+    <string name="insights_title">Insights</string>
+    <string name="insights_subtitle">How your stack is growing</string>
+    <string name="insights_perfect_days">Perfect days</string>
+    <string name="insights_completion">30-day completion</string>
+    <string name="insights_top_streak">Top streak</string>
+    <string name="insights_check_ins">Check-ins</string>
+    <string name="insights_last_7_days">Last 7 days</string>
+    <string name="insights_activity">Activity</string>
+    <string name="insights_leaders">Streak leaders</string>
+    <string name="insights_empty_title">Nothing to show yet</string>
+    <string name="insights_empty_body">Check in on a few habits and your stats will start filling in.</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_profile">Profile</string>
+    <string name="settings_name">Your name</string>
+    <string name="settings_name_empty">Tap to add your name</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_summary">Evening check-in</string>
+    <string name="settings_summary_body">A nudge at %1$s if anything is still open</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_language_body">Change it in system settings</string>
+    <string name="settings_data">Data</string>
+    <string name="settings_erase">Erase all data</string>
+    <string name="settings_erase_body">Deletes every habit and check-in</string>
+    <string name="settings_erase_title">Erase everything?</string>
+    <string name="settings_erase_confirm">All habits and their history will be deleted. This can\'t be undone.</string>
+    <string name="settings_erase_action">Erase</string>
+    <string name="settings_about">About</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="settings_source">Source code</string>
+    <string name="settings_source_body" translatable="false">github.com/CodingfulAlt</string>
+
+    <string name="onboarding_title">Stack small wins.</string>
+    <string name="onboarding_body">Every check-in adds a stone. Keep stacking and the habit sticks.</string>
+    <string name="onboarding_name">What should we call you?</string>
+    <string name="onboarding_name_placeholder">Your name (optional)</string>
+    <string name="onboarding_suggestions">Start with a few</string>
+    <string name="onboarding_start">Start stacking</string>
+    <string name="suggestion_water">Drink water</string>
+    <string name="suggestion_read">Read 10 pages</string>
+    <string name="suggestion_move">Move for 20 min</string>
+    <string name="suggestion_meditate">Meditate</string>
+    <string name="suggestion_sleep">In bed by 11</string>
+    <string name="suggestion_journal">Write 3 lines</string>
+
+    <string name="channel_reminders">Habit reminders</string>
+    <string name="channel_reminders_desc">Reminders at the time you set for each habit</string>
+    <string name="channel_summary">Evening check-in</string>
+    <string name="channel_summary_desc">One nudge a day when habits are still open</string>
+    <string name="notif_reminder_body" tools:ignore="PluralsCandidate">%1$d of %2$d done today. Add a stone?</string>
+    <string name="notif_action_done">Done</string>
+    <plurals name="notif_summary_title">
+        <item quantity="one">%d habit left today</item>
+        <item quantity="other">%d habits left today</item>
+    </plurals>
+    <string name="notif_summary_body">Finish the stack before the day ends.</string>
 </resources>
