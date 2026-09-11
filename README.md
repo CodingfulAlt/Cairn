@@ -16,10 +16,10 @@
 
 Hikers stack cairns one stone at a time to mark their trail. Cairn works the same way: every check-in adds a stone, helping you build lasting habits through small daily wins.
 
-* **Android Only** — Tailored natively for Android (requires Android 8.0 / minSdk 26 or newer).
-* **100% Private & Offline** — No accounts, no data collection, and no internet required.
-* **No Ads or Subscriptions** — Completely free to use with zero advertisements.
-* **Modern UI** — Built with Material 3, fully supporting dark mode, dynamic colors, phones, foldables, and tablets.
+- **Android Only** - Tailored natively for Android (requires Android 8.0 / minSdk 26 or newer).
+- **100% Private & Offline** - No accounts, no data collection, and no internet required.
+- **No Ads or Subscriptions** - Completely free to use with zero advertisements.
+- **Modern UI** - Built with Material 3, fully supporting dark mode, dynamic colors, phones, foldables, and tablets.
 
 ---
 
@@ -54,15 +54,15 @@ On Android tablets and foldables in landscape mode, Cairn adapts into a multi-co
 
 ## Features
 
-- **Today View** — See daily progress with a stone stack that grows as habits are completed. Finish everything for a confetti reward animation!
-- **Simple Check-Ins** — Tap to mark complete, or long-press to undo. Set daily targets (e.g., drink 6 glasses of water) with visual progress rings.
-- **Flexible Schedules** — Track daily routines, weekdays, weekends, or specific days of the week. Rest days won't break your streaks.
-- **Detailed Stats** — View current streaks, best streaks, completion rates, and a 20-week activity heatmap for every habit.
-- **Overall Insights** — Track total perfect days, view 7-day progress charts, heatmaps, and a streak leaderboard across all habits.
-- **Smart Reminders** — Get Android notifications with a quick "Done" button, plus an optional evening check-in reminder.
-- **Past Day Editing** — Easily edit past days directly from the week strip if you forgot to log yesterday.
-- **Customization** — Personalize habits with 30 icons, 8 color themes, and light/dark mode support.
-- **Multi-Language** — Available in English and Bulgarian, with per-app language selection support (Android 13+).
+- **Today View** - See daily progress with a stone stack that grows as habits are completed. Finish everything for a confetti reward animation!
+- **Simple Check-Ins** - Tap to mark complete, or long-press to undo. Set daily targets (e.g., drink 6 glasses of water) with visual progress rings.
+- **Flexible Schedules** - Track daily routines, weekdays, weekends, or specific days of the week. Rest days won't break your streaks.
+- **Detailed Stats** - View current streaks, best streaks, completion rates, and a 20-week activity heatmap for every habit.
+- **Overall Insights** - Track total perfect days, view 7-day progress charts, heatmaps, and a streak leaderboard across all habits.
+- **Smart Reminders** - Get Android notifications with a quick "Done" button, plus an optional evening check-in reminder.
+- **Past Day Editing** - Easily edit past days directly from the week strip if you forgot to log yesterday.
+- **Customization** - Personalize habits with 30 icons, 8 color themes, and light/dark mode support.
+- **Multi-Language** - Available in English and Bulgarian, with per-app language selection support (Android 13+).
 
 ---
 
@@ -79,9 +79,9 @@ On Android tablets and foldables in landscape mode, Cairn adapts into a multi-co
 
 Cairn is designed with complete user privacy in mind:
 
-- **100% Local Storage** — All habit entries, check-ins, and user settings are stored exclusively inside a local database on your Android device.
-- **No Network Traffic** — The application operates completely offline and does not transmit data to any external server or cloud service.
-- **Zero Data Collection** — No personal information, usage analytics, or crash reports are tracked, collected, or shared.
+- **100% Local Storage** - All habit entries, check-ins, and user settings are stored exclusively inside a local database on your Android device.
+- **No Network Traffic** - The application operates completely offline and does not transmit data to any external server or cloud service.
+- **Zero Data Collection** - No personal information, usage analytics, or crash reports are tracked, collected, or shared.
 
 ---
 
