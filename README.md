@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/CodingfulAlt/Cairn/releases/latest"><img src="https://img.shields.io/github/v/release/CodingfulAlt/Cairn?style=flat&color=4285F4" alt="Latest Release" /></a>
+  <a href="https://github.com/CodingfulAlt/Cairn/releases/latest"><img src="https://img.shields.io/badge/Release-v1.0.0-4285F4?logo=github&logoColor=white" alt="Latest Release" /></a>
   <img src="https://img.shields.io/badge/Platform-Android%20Only-3DDC84?logo=android&logoColor=white" alt="Platform Android Only" />
   <img src="https://img.shields.io/badge/Kotlin-2.3-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin" />
   <img src="https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" />
@@ -16,7 +16,7 @@ Hikers stack cairns one stone at a time to mark their trail. Cairn works the sam
 
 * **Android Only** — Tailored natively for Android (requires Android 8.0 / minSdk 26 or newer).
 * **100% Private & Offline** — No accounts, no data collection, and no internet required.
-* **No Ads or Subscriptions** — Completely free and open source.
+* **No Ads or Subscriptions** — Completely free to use with zero advertisements.
 * **Modern UI** — Built with Material 3, fully supporting dark mode, dynamic colors, phones, foldables, and tablets.
 
 ---
@@ -73,10 +73,6 @@ On Android tablets and foldables in landscape mode, Cairn adapts into a multi-co
 
 ---
 
-## Building from Source
+## Author
 
-If you want to build the project yourself:
-
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/CodingfulAlt/Cairn.git](https://github.com/CodingfulAlt/Cairn.git)
+Created by [CodingfulAlt](https://github.com/CodingfulAlt).
