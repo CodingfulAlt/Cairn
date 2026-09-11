@@ -10,6 +10,8 @@
   <img src="https://img.shields.io/badge/minSdk-26%2B-3DDC84?logo=android&logoColor=white" alt="minSdk 26+" />
 </p>
 
+> **Beta Notice:** Cairn is currently in active development. While tested for stability, bugs or unexpected behavior may occur.
+
 **Cairn** is a simple, beautiful, and privacy-focused habit tracker built exclusively for **Android** devices (phones, foldables, and tablets).
 
 Hikers stack cairns one stone at a time to mark their trail. Cairn works the same way: every check-in adds a stone, helping you build lasting habits through small daily wins.
@@ -70,6 +72,16 @@ On Android tablets and foldables in landscape mode, Cairn adapts into a multi-co
 - [ ] Backup & restore (export / import data)
 - [ ] Notes for individual check-ins
 - [ ] Wear OS companion tile
+
+---
+
+## Privacy Policy
+
+Cairn is designed with complete user privacy in mind:
+
+- **100% Local Storage** — All habit entries, check-ins, and user settings are stored exclusively inside a local database on your Android device.
+- **No Network Traffic** — The application operates completely offline and does not transmit data to any external server or cloud service.
+- **Zero Data Collection** — No personal information, usage analytics, or crash reports are tracked, collected, or shared.
 
 ---
 
