@@ -182,11 +182,11 @@
         <h2 id="features-title">Small daily habits, tracked properly.</h2>
       </div>
       <ul class="features">
-        <li data-reveal style="--d:0s"><span class="fi"><svg aria-hidden="true"><use href="#i-tap"/></svg></span><h3>One tap check-ins</h3><p>Tap to add a stone, long press to take it back. Goals like six glasses of water fill up as you go.</p></li>
+        <li data-reveal style="--d:0s"><span class="fi"><svg aria-hidden="true"><use href="#i-tap"/></svg></span><h3>One tap check-ins</h3><p>Tap to add a stone, long press to take it back, or check in straight from the home screen widget. Goals like six glasses of water fill up as you go.</p></li>
         <li data-reveal style="--d:.08s"><span class="fi"><svg aria-hidden="true"><use href="#i-flame"/></svg></span><h3>Streaks that make sense</h3><p>Pick the days a habit runs on. Rest days never break a streak, and you can fill in yesterday if you forgot.</p></li>
         <li data-reveal style="--d:.16s"><span class="fi"><svg aria-hidden="true"><use href="#i-bell"/></svg></span><h3>Reminders with a Done button</h3><p>Set a time for each habit and check in right from the notification. An optional evening nudge only shows up if something is still open.</p></li>
         <li data-reveal style="--d:0s"><span class="fi"><svg aria-hidden="true"><use href="#i-chart"/></svg></span><h3>Insights</h3><p>A 20-week heatmap for every habit, perfect days, a weekly chart and your longest streaks.</p></li>
-        <li data-reveal style="--d:.08s"><span class="fi"><svg aria-hidden="true"><use href="#i-lock"/></svg></span><h3>Private by default</h3><p>No account, no ads, no analytics. Cairn doesn't even ask for internet access, so your habits never leave your phone.</p></li>
+        <li data-reveal style="--d:.08s"><span class="fi"><svg aria-hidden="true"><use href="#i-lock"/></svg></span><h3>Private by default</h3><p>No account, no ads, no analytics. Cairn doesn't even ask for internet access, so your habits never leave your phone unless you export a backup.</p></li>
         <li data-reveal style="--d:.16s"><span class="fi"><svg aria-hidden="true"><use href="#i-contrast"/></svg></span><h3>Made for every screen</h3><p>Light and dark themes, English and Bulgarian, and layouts that fit phones, foldables and tablets.</p></li>
       </ul>
     </div>
@@ -227,7 +227,7 @@
       <div data-reveal>
         <p class="eyebrow">Source code</p>
         <h2 id="os-title">Nothing to hide.</h2>
-        <p class="body">The full source code is public on GitHub, so anyone can see exactly what Cairn does with their data. You can also check the app itself: it only asks to show notifications and to bring reminders back after a restart. No internet access at all.</p>
+        <p class="body">The full source code is public on GitHub, so anyone can see exactly what Cairn does with their data. You can also check the app itself: it only asks to show notifications, to bring reminders back after a restart and to keep the phone awake for a moment while the widget updates. No internet access at all.</p>
         <div class="actions">
           <a class="btn btn-ghost" href="https://github.com/CodingfulAlt/Cairn"><svg aria-hidden="true"><use href="#i-github"/></svg>View the code</a>
           <a class="btn btn-ghost" href="https://github.com/CodingfulAlt/Cairn/issues"><svg aria-hidden="true"><use href="#i-bug"/></svg>Report a bug</a>
@@ -238,6 +238,7 @@
         <p><span class="pr">~ $</span> <span class="cmd">aapt2 dump permissions <span data-file>Cairn.apk</span> | grep android.permission</span></p>
         <p class="out">uses-permission: name='android.permission.POST_NOTIFICATIONS'</p>
         <p class="out">uses-permission: name='android.permission.RECEIVE_BOOT_COMPLETED'</p>
+        <p class="out">uses-permission: name='android.permission.WAKE_LOCK'</p>
       </div>
     </div>
   </section>
@@ -262,7 +263,8 @@
         <details data-reveal style="--d:.1s"><summary>Is it on Google Play?</summary><div class="faq-a"><p>Not yet. Download the APK from this page or from GitHub Releases, where every version is published.</p></div></details>
         <details data-reveal style="--d:.15s"><summary>Is there an iPhone version?</summary><div class="faq-a"><p>No. Cairn is Android only for now.</p></div></details>
         <details data-reveal style="--d:.2s"><summary>Which Android versions are supported?</summary><div class="faq-a"><p>Android 8.0 (Oreo) and newer, on phones, foldables and tablets.</p></div></details>
-        <details data-reveal style="--d:.25s"><summary>How do I update?</summary><div class="faq-a"><p>Download the newest APK and install it over the current one. Your habits and history stay on the phone.</p></div></details>
+        <details data-reveal style="--d:.25s"><summary>Can I move my habits to a new phone?</summary><div class="faq-a"><p>Yes. In Settings, tap Export backup and save the file. On the new phone, install Cairn and tap Restore backup.</p></div></details>
+        <details data-reveal style="--d:.3s"><summary>How do I update?</summary><div class="faq-a"><p>Download the newest APK and install it over the current one. Your habits and history stay on the phone.</p></div></details>
       </div>
     </div>
   </section>

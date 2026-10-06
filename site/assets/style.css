@@ -117,8 +117,9 @@ button { font: inherit; color: inherit; }
 }
 
 /* terminals */
-.term { position: relative; margin-top: 28px; background: #0F1011; border: 1px solid var(--line); border-radius: 14px; padding: 16px 84px 16px 20px; font-family: var(--mono); font-size: 14px; line-height: 1.8; max-width: 540px; overflow-x: auto; }
-.term p { white-space: nowrap; }
+.term { position: relative; margin-top: 28px; background: #0F1011; border: 1px solid var(--line); border-radius: 14px; padding: 16px 84px 16px 20px; font-family: var(--mono); font-size: 14px; line-height: 1.8; max-width: 540px; overflow: hidden; }
+/* long commands wrap instead of sliding under the Copy button on phones */
+.term p { overflow-wrap: anywhere; }
 .term .pr { color: var(--red-text); }
 .term .out { color: var(--dim); }
 .js .term[data-type]:not(.done) .cmd:not(.on), .js .term[data-type]:not(.done) .out:not(.on) { visibility: hidden; }

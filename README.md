@@ -54,6 +54,12 @@ On Android tablets and foldables in landscape mode, Cairn adapts into a multi-co
   <img src="docs/screenshots/tablet.png" alt="Cairn on a tablet" width="100%" />
 </p>
 
+The home screen widget shows today's stack and lets you check in with the + button:
+
+<p align="center">
+  <img src="docs/screenshots/widget.png" alt="Cairn home screen widget" width="300" />
+</p>
+
 ---
 
 ## Features
@@ -64,6 +70,8 @@ On Android tablets and foldables in landscape mode, Cairn adapts into a multi-co
 - **Detailed Stats** - View current streaks, best streaks, completion rates, and a 20-week activity heatmap for every habit.
 - **Overall Insights** - Track total perfect days, view 7-day progress charts, heatmaps, and a streak leaderboard across all habits.
 - **Smart Reminders** - Get Android notifications with a quick "Done" button, plus an optional evening check-in reminder.
+- **Home Screen Widget** - See today's stack on your home screen and check in with the + button without opening the app.
+- **Backup & Restore** - Export your habits and history to a file and restore them on a new phone. The file stays wherever you save it.
 - **Past Day Editing** - Easily edit past days directly from the week strip if you forgot to log yesterday.
 - **Customization** - Personalize habits with 30 icons, 8 colors, and light/dark mode support.
 - **Multi-Language** - Available in English and Bulgarian, with per-app language selection support (Android 13+).
@@ -78,8 +86,8 @@ Cairn is **source available**, not open source. The code is public so anyone can
 
 ## Roadmap
 
-- [ ] Home screen widgets
-- [ ] Backup & restore (export / import data)
+- [x] Home screen widgets
+- [x] Backup & restore (export / import data)
 - [ ] Notes for individual check-ins
 - [ ] Wear OS companion tile
 
@@ -91,7 +99,7 @@ Cairn is designed with complete user privacy in mind:
 
 - **100% Local Storage** - All habit entries, check-ins, and user settings are stored exclusively inside a local database on your Android device.
 - **No Network Traffic** - The application operates completely offline and does not transmit data to any external server or cloud service.
-- **No Cloud Backup** - Habit data is kept out of Google's automatic cloud backup. Moving to a new phone with Android's device-to-device transfer still works.
+- **No Cloud Backup** - Habit data is kept out of Google's automatic cloud backup. Moving to a new phone with Android's device-to-device transfer still works, or export a backup file yourself from Settings.
 - **Zero Data Collection** - No personal information, usage analytics, or crash reports are tracked, collected, or shared.
 
 ---
