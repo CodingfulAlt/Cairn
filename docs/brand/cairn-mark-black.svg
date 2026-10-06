@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <g transform="translate(0 -3)" fill="#000000">
+    <path d="M12,72 L16,64 L34,61 L70,61 L86,65 L88,73 L82,77 L18,78 Z"/>
+    <path fill-rule="evenodd" d="M18,55 L22,47 L40,44 L64,44.5 L74,49 L73,56 L66,59 L22,59 Z M28.41,49.95 L45.38,49.06 L45.59,53.05 L28.62,53.94 Z"/>
+    <path d="M38,38 L42,31 L56,28 L72,29 L80,33 L78,39 L70,41.5 L42,41.5 Z"/>
+  </g>
+</svg>

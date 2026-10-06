@@ -1,0 +1,237 @@
+(function () {
+  var REPO = 'CodingfulAlt/Cairn';
+  var APK_PREFIX = 'https://github.com/' + REPO + '/releases/download/';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function each(selector, fn, scope) {
+    Array.prototype.forEach.call((scope || document).querySelectorAll(selector), fn);
+  }
+
+  // Point every Download link at the newest APK, so a release never needs a site change.
+  var release = new Promise(function (resolve) {
+    if (!window.fetch) return resolve();
+    var timer = setTimeout(resolve, 1500);
+    fetch('https://api.github.com/repos/' + REPO + '/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        // only ever link to an APK on this repo's own releases
+        var apk = data && data.assets && data.assets.filter(function (a) {
+          return /^[\w.-]+\.apk$/i.test(a.name) && String(a.browser_download_url).indexOf(APK_PREFIX) === 0;
+        })[0];
+        if (!apk) return;
+        each('[data-dl]', function (a) { a.href = apk.browser_download_url; });
+        if (/^v?\d+(\.\d+){0,3}$/.test(data.tag_name)) {
+          each('[data-version]', function (el) { el.textContent = data.tag_name; });
+        }
+        each('[data-size]', function (el) { el.textContent = (apk.size / 1048576).toFixed(1) + ' MB'; });
+        each('[data-file]', function (el) { el.textContent = apk.name; });
+      })
+      .catch(function () {})
+      .then(function () { clearTimeout(timer); resolve(); });
+  });
+
+  // terminals type their commands the first time they scroll into view
+  function typeLine(line, done) {
+    var text = line.getAttribute('data-text');
+    var i = 0;
+    line.textContent = '';
+    line.classList.add('on', 'typing');
+    (function step() {
+      line.textContent = text.slice(0, ++i);
+      if (i < text.length) {
+        setTimeout(step, 24 + Math.random() * 40);
+      } else {
+        line.classList.remove('typing');
+        setTimeout(done, 280);
+      }
+    })();
+  }
+  function runTerminal(term) {
+    var cmds = term.querySelectorAll('.cmd');
+    each('.cmd', function (c) { c.setAttribute('data-text', c.textContent); }, term);
+    var i = 0;
+    (function next() {
+      if (i < cmds.length) return typeLine(cmds[i++], next);
+      each('.out', function (o, k) { setTimeout(function () { o.classList.add('on'); }, k * 200); }, term);
+      setTimeout(function () { term.classList.add('done'); }, 600);
+    })();
+  }
+
+  if ('IntersectionObserver' in window && !reduce) {
+    var reveal = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        reveal.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+    each('[data-reveal]', function (el) { reveal.observe(el); });
+
+    var typer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        typer.unobserve(e.target);
+        release.then(function () { setTimeout(function () { runTerminal(e.target); }, 500); });
+      });
+    }, { threshold: 0.6 });
+    each('[data-type]', function (el) { typer.observe(el); });
+  } else {
+    each('[data-reveal]', function (el) { el.classList.add('in'); });
+    each('[data-type]', function (el) { el.classList.add('done'); });
+  }
+
+  // header shadow, reading progress and the active nav link
+  var header = document.querySelector('.top');
+  var bar = document.querySelector('.progress');
+  var dock = document.querySelector('.dock');
+  var pill = dock && dock.querySelector('.dock-pill');
+  var lastDock = null;
+
+  function spy(selector) {
+    var links = Array.prototype.slice.call(document.querySelectorAll(selector));
+    var targets = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    return function (atBottom) {
+      var current = -1;
+      targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top < window.innerHeight * 0.35) current = i; });
+      if (atBottom) current = targets.length - 1;
+      links.forEach(function (a, i) { a.classList.toggle('active', i === current); });
+      return links[current] || null;
+    };
+  }
+  var spyNav = spy('.nav a');
+  var spyDock = spy('.dock a');
+
+  var ticking = false;
+  function onScroll() {
+    ticking = false;
+    var y = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var atBottom = max > 0 && y >= max - 4;
+    header.classList.toggle('scrolled', y > 8);
+    bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(y / max, 1) : 0) + ')';
+    spyNav(atBottom);
+    var active = spyDock(atBottom);
+    if (pill && active && active !== lastDock) {
+      lastDock = active;
+      pill.style.setProperty('--x', active.offsetLeft + 'px');
+      dock.classList.add('ready');
+    }
+  }
+  window.addEventListener('resize', function () { lastDock = null; onScroll(); });
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
+
+  // the hero stones stack on load and again on every tap
+  if (!reduce) {
+    each('[data-stack]', function (btn) {
+      var svg = btn.querySelector('.stack-svg');
+      svg.classList.add('play');
+      btn.addEventListener('click', function () {
+        svg.classList.remove('play');
+        void svg.getBoundingClientRect();
+        svg.classList.add('play');
+      });
+    });
+  }
+
+  // the desktop icon also tilts toward the pointer
+  var iconBtn = document.querySelector('.icon-btn');
+  if (iconBtn && !reduce) {
+    iconBtn.addEventListener('pointermove', function (e) {
+      var r = iconBtn.getBoundingClientRect();
+      iconBtn.style.setProperty('--ry', ((e.clientX - r.left) / r.width - 0.5) * 16 + 'deg');
+      iconBtn.style.setProperty('--rx', (0.5 - (e.clientY - r.top) / r.height) * 16 + 'deg');
+    });
+    iconBtn.addEventListener('pointerleave', function () {
+      iconBtn.style.setProperty('--rx', '0deg');
+      iconBtn.style.setProperty('--ry', '0deg');
+    });
+  }
+
+  // phone mockups: the hovered one comes forward and tilts, the other steps back
+  var row = document.querySelector('.shots-row');
+  if (row && !reduce) {
+    each('.shot', function (shot) {
+      var img = shot.querySelector('img');
+      function reset() {
+        shot.classList.remove('is-active');
+        row.classList.remove('has-active');
+        img.style.setProperty('--rx', '0deg');
+        img.style.setProperty('--ry', '0deg');
+      }
+      shot.addEventListener('pointerenter', function () {
+        shot.classList.add('is-active');
+        row.classList.add('has-active');
+      });
+      shot.addEventListener('pointermove', function (e) {
+        var r = shot.getBoundingClientRect();
+        img.style.setProperty('--ry', ((e.clientX - r.left) / r.width - 0.5) * 14 + 'deg');
+        img.style.setProperty('--rx', (0.5 - (e.clientY - r.top) / r.height) * 8 + 'deg');
+      });
+      shot.addEventListener('pointerleave', reset);
+      shot.addEventListener('pointercancel', reset);
+    });
+  }
+
+  // FAQ works as an accordion: opening one answer closes the one that was open
+  var faqs = Array.prototype.slice.call(document.querySelectorAll('.faq details'));
+  function closeFaq(d) {
+    var body = d.querySelector('.faq-a');
+    if (reduce || !body.animate) { d.open = false; return; }
+    d.dataset.busy = '1';
+    d.classList.add('closing');
+    var anim = body.animate({ height: [body.offsetHeight + 'px', '0px'], opacity: [1, 0] }, { duration: 300, easing: 'cubic-bezier(.4,0,.2,1)' });
+    anim.onfinish = function () { d.open = false; d.classList.remove('closing'); delete d.dataset.busy; };
+  }
+  function openFaq(d) {
+    var body = d.querySelector('.faq-a');
+    d.open = true;
+    if (reduce || !body.animate) return;
+    d.dataset.busy = '1';
+    var anim = body.animate({ height: ['0px', body.offsetHeight + 'px'], opacity: [0, 1] }, { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
+    anim.onfinish = function () { delete d.dataset.busy; };
+  }
+  faqs.forEach(function (d) {
+    d.querySelector('summary').addEventListener('click', function (e) {
+      e.preventDefault();
+      if (d.dataset.busy) return;
+      if (d.open) return closeFaq(d);
+      faqs.forEach(function (other) { if (other !== d && other.open && !other.dataset.busy) closeFaq(other); });
+      openFaq(d);
+    });
+  });
+
+  // copy buttons on the terminals
+  function fallbackCopy(text) {
+    var t = document.createElement('textarea');
+    t.value = text;
+    t.setAttribute('readonly', '');
+    t.style.position = 'fixed';
+    t.style.opacity = '0';
+    document.body.appendChild(t);
+    t.select();
+    try { document.execCommand('copy'); } catch (err) {}
+    document.body.removeChild(t);
+  }
+  each('[data-copy]', function (btn) {
+    btn.addEventListener('click', function () {
+      var term = btn.closest('.term');
+      var text = Array.prototype.map.call(term.querySelectorAll('.cmd'), function (c) {
+        return c.getAttribute('data-text') || c.textContent;
+      }).join('\n');
+      function copied() {
+        btn.textContent = 'Copied';
+        btn.classList.add('ok');
+        setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 1600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(copied, function () { fallbackCopy(text); copied(); });
+      } else {
+        fallbackCopy(text);
+        copied();
+      }
+    });
+  });
+})();

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_save">Запази</string>
+    <string name="action_cancel">Отказ</string>
+    <string name="action_delete">Изтрий</string>
+    <string name="action_edit">Редактирай</string>
+    <string name="action_share">Сподели</string>
+    <string name="action_archive">Архивирай</string>
+    <string name="action_restore">Възстанови</string>
+    <string name="action_back">Назад</string>
+    <string name="action_close">Затвори</string>
+    <string name="action_more">Още опции</string>
+    <string name="action_new_habit">Нов навик</string>
+    <string name="action_open_settings">Настройки</string>
+
+    <string name="nav_today">Днес</string>
+    <string name="nav_habits">Навици</string>
+    <string name="nav_insights">Статистика</string>
+    <string name="nav_settings">Настройки</string>
+
+    <string name="greeting_morning">Добро утро</string>
+    <string name="greeting_afternoon">Добър ден</string>
+    <string name="greeting_evening">Добър вечер</string>
+    <string name="greeting_night">Късно е</string>
+    <string name="greeting_named">%1$s, %2$s</string>
+
+    <string name="today_stack_label">Днешната кула</string>
+    <string name="today_stack_count">%1$d от %2$d</string>
+    <string name="today_stack_caption">навика изпълнени</string>
+    <string name="today_stack_caption_past">навика изпълнени този ден</string>
+    <string name="today_perfect_title">Перфектен ден</string>
+    <string name="today_perfect_body">Всички камъни са на мястото си.</string>
+    <string name="today_rest_title">Почивен ден</string>
+    <string name="today_rest_body">За този ден няма нищо планирано.</string>
+    <string name="today_empty_title">Построй първата си кула</string>
+    <string name="today_empty_body">Избери едно малко нещо, което искаш да правиш всеки ден. Това е първият ти камък.</string>
+    <string name="today_empty_action">Създай навик</string>
+    <string name="today_section_todo">Предстоящи</string>
+    <string name="today_section_done">Готови</string>
+    <string name="today_previous_week">Предишна седмица</string>
+    <string name="today_next_week">Следваща седмица</string>
+    <string name="today_jump_to_today">Към днес</string>
+    <string name="habit_progress_today">%1$d от %2$d днес</string>
+    <string name="habit_check_in">Отбележи %1$s</string>
+    <string name="habit_undo_check_in">Отмени</string>
+
+    <plurals name="streak_days">
+        <item quantity="one">%d ден поред</item>
+        <item quantity="other">%d дни поред</item>
+    </plurals>
+    <plurals name="days_count">
+        <item quantity="one">%d ден</item>
+        <item quantity="other">%d дни</item>
+    </plurals>
+    <plurals name="goal_per_day">
+        <item quantity="one">Веднъж на ден</item>
+        <item quantity="other">%d пъти на ден</item>
+    </plurals>
+
+    <string name="schedule_every_day">Всеки ден</string>
+    <string name="schedule_weekdays">Делнични дни</string>
+    <string name="schedule_weekends">Уикенди</string>
+
+    <string name="editor_title_new">Нов навик</string>
+    <string name="editor_title_edit">Редактирай навик</string>
+    <string name="editor_name_label">Име</string>
+    <string name="editor_name_placeholder">Чети 10 страници</string>
+    <string name="editor_name_error">Дай му име</string>
+    <string name="editor_note_label">Бележка (по желание)</string>
+    <string name="editor_note_placeholder">Защо е важно за теб?</string>
+    <string name="editor_icon">Икона</string>
+    <string name="editor_icon_option">Икона %1$d от %2$d</string>
+    <string name="editor_color">Цвят</string>
+    <string name="editor_goal">Дневна цел</string>
+    <string name="editor_goal_decrease">Намали целта</string>
+    <string name="editor_goal_increase">Увеличи целта</string>
+    <string name="editor_schedule">Повтаряй в</string>
+    <string name="editor_schedule_error">Избери поне един ден</string>
+    <string name="editor_reminder">Напомняне</string>
+    <string name="editor_reminder_body">Известие в избран от теб час</string>
+    <string name="editor_pick_time">Избери час</string>
+    <string name="editor_preview">Преглед</string>
+    <string name="notifications_blocked">Известията за Cairn са изключени</string>
+
+    <string name="color_moss">Мъх</string>
+    <string name="color_mint">Мента</string>
+    <string name="color_sky">Небе</string>
+    <string name="color_lavender">Лавандула</string>
+    <string name="color_rose">Роза</string>
+    <string name="color_peach">Праскова</string>
+    <string name="color_sand">Пясък</string>
+    <string name="color_coral">Корал</string>
+
+    <string name="detail_today">Днес</string>
+    <string name="detail_current_streak">Текуща серия</string>
+    <string name="detail_best_streak">Най-добра серия</string>
+    <string name="detail_rate">Последните 30 дни</string>
+    <string name="detail_check_ins">Отбелязвания</string>
+    <string name="detail_history">История</string>
+    <plurals name="detail_history_weeks">
+        <item quantity="one">Последната %d седмица</item>
+        <item quantity="other">Последните %d седмици</item>
+    </plurals>
+    <string name="legend_less">По-малко</string>
+    <string name="legend_more">Повече</string>
+    <string name="detail_delete_title">Да изтрия ли „%1$s“?</string>
+    <string name="detail_delete_body">Навикът и цялата му история ще бъдат изтрити. Това не може да се отмени.</string>
+    <string name="detail_archived">Архивиран</string>
+    <string name="detail_missing">Този навик вече не съществува.</string>
+    <string name="detail_add_check_in">Добави отбелязване</string>
+    <string name="detail_remove_check_in">Премахни отбелязване</string>
+    <string name="share_habit">Изграждам навик с Cairn: %1$s. Досега: %2$s.</string>
+    <string name="share_habit_chooser">Сподели навика</string>
+
+    <string name="habits_title">Навици</string>
+    <string name="habits_active">Активни</string>
+    <string name="habits_archived">Архив</string>
+    <string name="habits_empty_title">Още нямаш навици</string>
+    <string name="habits_empty_body">Натисни +, за да добавиш първия.</string>
+    <string name="habits_archived_empty_title">Архивът е празен</string>
+    <string name="habits_archived_empty_body">Архивираните навици пазят историята си и могат да се възстановят по всяко време.</string>
+    <string name="habits_best">Рекорд %1$d</string>
+
+    <string name="insights_title">Статистика</string>
+    <string name="insights_subtitle">Как расте кулата ти</string>
+    <string name="insights_perfect_days">Перфектни дни</string>
+    <string name="insights_completion">Изпълнение за 30 дни</string>
+    <string name="insights_top_streak">Най-дълга серия</string>
+    <string name="insights_check_ins">Отбелязвания</string>
+    <string name="insights_last_7_days">Последните 7 дни</string>
+    <string name="insights_activity">Активност</string>
+    <string name="insights_leaders">Най-дълги серии</string>
+    <string name="insights_empty_title">Още няма данни</string>
+    <string name="insights_empty_body">Отбележи няколко навика и статистиката ще започне да се попълва.</string>
+
+    <string name="settings_title">Настройки</string>
+    <string name="settings_profile">Профил</string>
+    <string name="settings_name">Твоето име</string>
+    <string name="settings_name_empty">Докосни, за да добавиш име</string>
+    <string name="settings_appearance">Изглед</string>
+    <string name="settings_theme">Тема</string>
+    <string name="theme_system">Системна</string>
+    <string name="theme_light">Светла</string>
+    <string name="theme_dark">Тъмна</string>
+    <string name="settings_notifications">Известия</string>
+    <string name="settings_summary">Вечерна проверка</string>
+    <string name="settings_summary_body">Напомняне в %1$s, ако нещо е останало</string>
+    <string name="settings_language">Език</string>
+    <string name="settings_language_body">Смени го от системните настройки</string>
+    <string name="settings_data">Данни</string>
+    <string name="settings_erase">Изтрий всички данни</string>
+    <string name="settings_erase_body">Изтрива всички навици и отбелязвания</string>
+    <string name="settings_erase_title">Да изтрия ли всичко?</string>
+    <string name="settings_erase_confirm">Всички навици и историята им ще бъдат изтрити. Това не може да се отмени.</string>
+    <string name="settings_erase_action">Изтрий</string>
+    <string name="settings_about">Информация</string>
+    <string name="settings_version">Версия %1$s</string>
+    <string name="settings_source">Изходен код</string>
+
+    <string name="onboarding_title">Малки победи, една върху друга.</string>
+    <string name="onboarding_body">Всяко отбелязване добавя камък. Продължавай да редиш и навикът остава.</string>
+    <string name="onboarding_name">Как да те наричаме?</string>
+    <string name="onboarding_name_placeholder">Твоето име (по желание)</string>
+    <string name="onboarding_suggestions">Започни с няколко</string>
+    <string name="onboarding_start">Започни</string>
+    <string name="suggestion_water">Пий вода</string>
+    <string name="suggestion_read">Чети 10 страници</string>
+    <string name="suggestion_move">Движи се 20 мин</string>
+    <string name="suggestion_meditate">Медитирай</string>
+    <string name="suggestion_sleep">В леглото до 23:00</string>
+    <string name="suggestion_journal">Напиши 3 реда</string>
+
+    <string name="channel_reminders">Напомняния за навици</string>
+    <string name="channel_reminders_desc">Напомняния в избрания от теб час за всеки навик</string>
+    <string name="channel_summary">Вечерна проверка</string>
+    <string name="channel_summary_desc">Едно напомняне на ден, ако има неотбелязани навици</string>
+    <string name="notif_reminder_body">%1$d от %2$d за днес. Ще добавиш ли камък?</string>
+    <string name="notif_action_done">Готово</string>
+    <plurals name="notif_summary_title">
+        <item quantity="one">Остава %d навик за днес</item>
+        <item quantity="other">Остават %d навика за днес</item>
+    </plurals>
+    <string name="notif_summary_body">Довърши кулата преди края на деня.</string>
+</resources>

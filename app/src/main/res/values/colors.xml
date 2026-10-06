@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cairn_ink">#FF1F2124</color>
+    <color name="cairn_paper">#FFF4F4F2</color>
+    <color name="cairn_night">#FF141415</color>
+    <color name="cairn_blaze">#FFD63A2F</color>
+</resources>
