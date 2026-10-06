@@ -38,4 +38,10 @@ interface HabitRepository {
     ): Int
 
     suspend fun deleteAll()
+
+    /** Swaps every habit and check-in for these, ids included. Used when restoring a backup. */
+    suspend fun replaceAll(
+        habits: List<Habit>,
+        checkIns: List<CheckIn>,
+    )
 }

@@ -4,6 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -37,6 +40,8 @@ import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.rounded.NightsStay
+import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.Save
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -51,6 +56,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -61,6 +67,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
@@ -86,6 +93,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val backupMessage by viewModel.backupMessage.collectAsStateWithLifecycle()
     if (state.loading) return
     SettingsContent(
         preferences = state.preferences,
@@ -93,6 +101,11 @@ fun SettingsScreen(
         onNameChange = viewModel::setUserName,
         onSummaryChange = viewModel::setDailySummary,
         onErase = viewModel::eraseAllData,
+        backupFileName = viewModel::backupFileName,
+        onExport = viewModel::exportBackup,
+        onImport = viewModel::importBackup,
+        backupMessage = backupMessage,
+        onBackupMessageShown = viewModel::backupMessageShown,
         contentPadding = contentPadding,
     )
 }
@@ -104,6 +117,11 @@ internal fun SettingsContent(
     onNameChange: (String) -> Unit,
     onSummaryChange: (Boolean, java.time.LocalTime) -> Unit,
     onErase: () -> Unit,
+    backupFileName: () -> String,
+    onExport: (Uri) -> Unit,
+    onImport: (Uri) -> Unit,
+    backupMessage: BackupMessage?,
+    onBackupMessageShown: () -> Unit,
     contentPadding: PaddingValues,
 ) {
     val context = LocalContext.current
@@ -111,7 +129,27 @@ internal fun SettingsContent(
     var editingName by rememberSaveable { mutableStateOf(false) }
     var pickingTime by rememberSaveable { mutableStateOf(false) }
     var confirmErase by rememberSaveable { mutableStateOf(false) }
+    var confirmImport by rememberSaveable { mutableStateOf(false) }
     val top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 16.dp
+
+    // the system file picker hands back a document the user chose, no storage permission needed
+    val exportLauncher =
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.CreateDocument("application/json"),
+        ) { uri ->
+            uri?.let(onExport)
+        }
+    val importLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+            uri?.let(onImport)
+        }
+    val messageText = backupMessage?.let { backupMessageText(it) }
+    LaunchedEffect(backupMessage) {
+        if (messageText != null) {
+            Toast.makeText(context, messageText, Toast.LENGTH_LONG).show()
+            onBackupMessageShown()
+        }
+    }
 
     Box(
         Modifier
@@ -198,6 +236,20 @@ internal fun SettingsContent(
 
             Group(stringResource(R.string.settings_data)) {
                 SettingRow(
+                    icon = Icons.Rounded.Save,
+                    title = stringResource(R.string.settings_export),
+                    subtitle = stringResource(R.string.settings_export_body),
+                    onClick = { exportLauncher.launch(backupFileName()) },
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                SettingRow(
+                    icon = Icons.Rounded.Restore,
+                    title = stringResource(R.string.settings_import),
+                    subtitle = stringResource(R.string.settings_import_body),
+                    onClick = { confirmImport = true },
+                )
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+                SettingRow(
                     icon = Icons.Rounded.DeleteForever,
                     title = stringResource(R.string.settings_erase),
                     subtitle = stringResource(R.string.settings_erase_body),
@@ -254,6 +306,27 @@ internal fun SettingsContent(
             onDismiss = { pickingTime = false },
         )
     }
+    if (confirmImport) {
+        AlertDialog(
+            onDismissRequest = { confirmImport = false },
+            title = { Text(stringResource(R.string.settings_import_title)) },
+            text = { Text(stringResource(R.string.settings_import_confirm)) },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        confirmImport = false
+                        // some file managers label .json as plain text or binary, the file is checked anyway
+                        importLauncher.launch(arrayOf("*/*"))
+                    },
+                ) { Text(stringResource(R.string.settings_import_action)) }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { confirmImport = false },
+                ) { Text(stringResource(R.string.action_cancel)) }
+            },
+        )
+    }
     if (confirmErase) {
         AlertDialog(
             onDismissRequest = { confirmErase = false },
@@ -280,6 +353,17 @@ internal fun SettingsContent(
         )
     }
 }
+
+@Composable
+private fun backupMessageText(message: BackupMessage): String =
+    when (message) {
+        is BackupMessage.Exported ->
+            pluralStringResource(R.plurals.backup_exported, message.habits, message.habits)
+        is BackupMessage.Restored ->
+            pluralStringResource(R.plurals.backup_restored, message.habits, message.habits)
+        BackupMessage.ExportFailed -> stringResource(R.string.backup_export_failed)
+        BackupMessage.ImportFailed -> stringResource(R.string.backup_import_failed)
+    }
 
 @Composable
 private fun ProfileCard(

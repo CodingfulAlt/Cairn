@@ -1,5 +1,7 @@
 package io.github.codingfulalt.cairn.core.data.repository
 
+import androidx.room.withTransaction
+import io.github.codingfulalt.cairn.core.database.CairnDatabase
 import io.github.codingfulalt.cairn.core.database.dao.CheckInDao
 import io.github.codingfulalt.cairn.core.database.dao.HabitDao
 import io.github.codingfulalt.cairn.core.database.entity.CheckInEntity
@@ -16,6 +18,7 @@ import javax.inject.Inject
 class OfflineHabitRepository
     @Inject
     constructor(
+        private val database: CairnDatabase,
         private val habitDao: HabitDao,
         private val checkInDao: CheckInDao,
     ) : HabitRepository {
@@ -70,4 +73,17 @@ class OfflineHabitRepository
         }
 
         override suspend fun deleteAll() = habitDao.deleteAll()
+
+        override suspend fun replaceAll(
+            habits: List<Habit>,
+            checkIns: List<CheckIn>,
+        ) {
+            database.withTransaction {
+                habitDao.deleteAll()
+                habitDao.insertAll(habits.map(Habit::asEntity))
+                checkInDao.insertAll(
+                    checkIns.map { CheckInEntity(it.habitId, it.date.toEpochDay(), it.count) },
+                )
+            }
+        }
     }

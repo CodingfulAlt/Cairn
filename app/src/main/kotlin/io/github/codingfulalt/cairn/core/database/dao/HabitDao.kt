@@ -27,6 +27,9 @@ interface HabitDao {
     @Insert
     suspend fun insert(habit: HabitEntity): Long
 
+    @Insert
+    suspend fun insertAll(habits: List<HabitEntity>)
+
     @Update
     suspend fun update(habit: HabitEntity)
 

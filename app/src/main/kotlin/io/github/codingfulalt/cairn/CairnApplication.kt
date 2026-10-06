@@ -5,6 +5,7 @@ import dagger.hilt.android.HiltAndroidApp
 import io.github.codingfulalt.cairn.core.common.di.ApplicationScope
 import io.github.codingfulalt.cairn.core.notifications.Notifier
 import io.github.codingfulalt.cairn.core.notifications.ReminderScheduler
+import io.github.codingfulalt.cairn.feature.widget.WidgetUpdater
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,6 +16,8 @@ class CairnApplication : Application() {
 
     @Inject lateinit var reminderScheduler: ReminderScheduler
 
+    @Inject lateinit var widgetUpdater: WidgetUpdater
+
     @Inject
     @ApplicationScope
     lateinit var applicationScope: CoroutineScope
@@ -24,5 +27,6 @@ class CairnApplication : Application() {
         notifier.createChannels()
         // cheap, and it heals alarms if the OS dropped them
         applicationScope.launch { reminderScheduler.rescheduleAll() }
+        widgetUpdater.start()
     }
 }

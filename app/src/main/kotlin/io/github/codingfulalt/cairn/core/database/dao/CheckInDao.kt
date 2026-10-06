@@ -1,6 +1,7 @@
 package io.github.codingfulalt.cairn.core.database.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
@@ -26,6 +27,9 @@ abstract class CheckInDao {
 
     @Upsert
     abstract suspend fun upsert(checkIn: CheckInEntity)
+
+    @Insert
+    abstract suspend fun insertAll(checkIns: List<CheckInEntity>)
 
     @Query("DELETE FROM check_ins WHERE habit_id = :habitId AND epoch_day = :epochDay")
     abstract suspend fun delete(

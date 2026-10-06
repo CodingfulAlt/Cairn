@@ -155,6 +155,21 @@
     <string name="settings_erase_title">Erase everything?</string>
     <string name="settings_erase_confirm">All habits and their history will be deleted. This can\'t be undone.</string>
     <string name="settings_erase_action">Erase</string>
+    <string name="settings_export">Export backup</string>
+    <string name="settings_export_body">Save your habits and history to a file</string>
+    <string name="settings_import">Restore backup</string>
+    <string name="settings_import_body">Load habits from a backup file</string>
+    <string name="settings_import_title">Restore from backup?</string>
+    <string name="settings_import_confirm">Your current habits and history will be replaced with the ones in the file.</string>
+    <string name="settings_import_action">Choose file</string>
+    <string name="backup_export_failed">Couldn\'t save the backup</string>
+    <string name="backup_import_failed">This file isn\'t a Cairn backup</string>
+    <string name="widget_name">Today\'s stack</string>
+    <string name="widget_description">Today\'s habits and progress. Tap + to check in.</string>
+    <string name="widget_empty">Nothing scheduled today</string>
+    <string name="widget_check_in">Check in %1$s</string>
+    <string name="widget_done">%1$s done</string>
+    <string name="widget_preview_count">3 of 5</string>
     <string name="settings_about">About</string>
     <string name="settings_version">Version %1$s</string>
     <string name="settings_source">Source code</string>
@@ -184,4 +199,12 @@
         <item quantity="other">%d habits left today</item>
     </plurals>
     <string name="notif_summary_body">Finish the stack before the day ends.</string>
+    <plurals name="backup_exported">
+        <item quantity="one">Backup saved with %d habit</item>
+        <item quantity="other">Backup saved with %d habits</item>
+    </plurals>
+    <plurals name="backup_restored">
+        <item quantity="one">Restored %d habit</item>
+        <item quantity="other">Restored %d habits</item>
+    </plurals>
 </resources>

@@ -7,3 +7,6 @@
 
 -keepattributes SourceFile,LineNumberTable
 -renamesourcefileattribute SourceFile
+
+# widget actions are created from their class name
+-keep class * implements androidx.glance.appwidget.action.ActionCallback { <init>(); }

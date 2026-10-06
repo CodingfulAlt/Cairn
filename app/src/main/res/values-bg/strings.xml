@@ -153,6 +153,21 @@
     <string name="settings_erase_title">Да изтрия ли всичко?</string>
     <string name="settings_erase_confirm">Всички навици и историята им ще бъдат изтрити. Това не може да се отмени.</string>
     <string name="settings_erase_action">Изтрий</string>
+    <string name="settings_export">Експортирай резервно копие</string>
+    <string name="settings_export_body">Запази навиците и историята във файл</string>
+    <string name="settings_import">Възстанови резервно копие</string>
+    <string name="settings_import_body">Зареди навици от файл</string>
+    <string name="settings_import_title">Да възстановя ли резервното копие?</string>
+    <string name="settings_import_confirm">Сегашните навици и историята ще бъдат заменени с тези от файла.</string>
+    <string name="settings_import_action">Избери файл</string>
+    <string name="backup_export_failed">Резервното копие не можа да се запише</string>
+    <string name="backup_import_failed">Този файл не е резервно копие от Cairn</string>
+    <string name="widget_name">Днешната кула</string>
+    <string name="widget_description">Днешните навици и напредък. Натисни + за отбелязване.</string>
+    <string name="widget_empty">Днес няма нищо планирано</string>
+    <string name="widget_check_in">Отбележи %1$s</string>
+    <string name="widget_done">%1$s е готово</string>
+    <string name="widget_preview_count">3 от 5</string>
     <string name="settings_about">Информация</string>
     <string name="settings_version">Версия %1$s</string>
     <string name="settings_source">Изходен код</string>
@@ -181,4 +196,12 @@
         <item quantity="other">Остават %d навика за днес</item>
     </plurals>
     <string name="notif_summary_body">Довърши кулата преди края на деня.</string>
+    <plurals name="backup_exported">
+        <item quantity="one">Запазено е копие с %d навик</item>
+        <item quantity="other">Запазено е копие с %d навика</item>
+    </plurals>
+    <plurals name="backup_restored">
+        <item quantity="one">Възстановен е %d навик</item>
+        <item quantity="other">Възстановени са %d навика</item>
+    </plurals>
 </resources>

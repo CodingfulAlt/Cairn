@@ -76,6 +76,15 @@ class FakeHabitRepository : HabitRepository {
         habits.value = emptyList()
         checkIns.value = emptyList()
     }
+
+    override suspend fun replaceAll(
+        habits: List<Habit>,
+        checkIns: List<CheckIn>,
+    ) {
+        this.habits.value = habits
+        this.checkIns.value = checkIns
+        nextId = (habits.maxOfOrNull { it.id } ?: 0L) + 1
+    }
 }
 
 class FakeUserPreferencesRepository : UserPreferencesRepository {

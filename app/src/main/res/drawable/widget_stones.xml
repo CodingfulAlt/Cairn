@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the logo stones, white with the red blaze, cropped to their bounds -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="54dp"
+    android:height="38dp"
+    android:viewportWidth="84"
+    android:viewportHeight="58">
+    <group
+        android:translateX="-8"
+        android:translateY="-25">
+        <path android:fillColor="#FFFFFFFF" android:pathData="M12,72L16,64L34,61L70,61L86,65L88,73L82,77L18,78Z" />
+        <path android:fillColor="#337A1A10" android:pathData="M55,70L86,65L88,73L82,77L52,78Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M18,55L22,47L40,44L64,44.5L74,49L73,56L66,59L22,59Z" />
+        <path android:fillColor="#FFD63A2F" android:pathData="M28.41,49.95L45.38,49.06L45.59,53.05L28.62,53.94Z" />
+        <path android:fillColor="#337A1A10" android:pathData="M48,53L74,49L73,56L66,59L46,59Z" />
+        <path android:fillColor="#FFFFFFFF" android:pathData="M38,38L42,31L56,28L72,29L80,33L78,39L70,41.5L42,41.5Z" />
+        <path android:fillColor="#337A1A10" android:pathData="M60,36L80,33L78,39L70,41.5L58,41.5Z" />
+    </group>
+</vector>
