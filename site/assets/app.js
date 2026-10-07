@@ -150,7 +150,7 @@
     });
   }
 
-  // phone mockups: the hovered one comes forward and tilts, the other steps back
+  // phone mockups: with a mouse the hovered one comes forward and tilts, the other steps back
   var row = document.querySelector('.shots-row');
   if (row && !reduce) {
     each('.shot', function (shot) {
@@ -161,11 +161,13 @@
         img.style.setProperty('--rx', '0deg');
         img.style.setProperty('--ry', '0deg');
       }
-      shot.addEventListener('pointerenter', function () {
+      shot.addEventListener('pointerenter', function (e) {
+        if (e.pointerType !== 'mouse') return;
         shot.classList.add('is-active');
         row.classList.add('has-active');
       });
       shot.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse') return;
         var r = shot.getBoundingClientRect();
         img.style.setProperty('--ry', ((e.clientX - r.left) / r.width - 0.5) * 14 + 'deg');
         img.style.setProperty('--rx', (0.5 - (e.clientY - r.top) / r.height) * 8 + 'deg');
@@ -175,31 +177,142 @@
     });
   }
 
-  // FAQ works as an accordion: opening one answer closes the one that was open
-  var faqs = Array.prototype.slice.call(document.querySelectorAll('.faq details'));
-  function closeFaq(d) {
-    var body = d.querySelector('.faq-a');
-    if (reduce || !body.animate) { d.open = false; return; }
-    d.dataset.busy = '1';
-    d.classList.add('closing');
-    var anim = body.animate({ height: [body.offsetHeight + 'px', '0px'], opacity: [1, 0] }, { duration: 300, easing: 'cubic-bezier(.4,0,.2,1)' });
-    anim.onfinish = function () { d.open = false; d.classList.remove('closing'); delete d.dataset.busy; };
+  // touch screens: tap a phone and it zooms up from where it sits, tap anywhere or go back to close
+  var lightbox = document.querySelector('.lightbox');
+  var touchScreen = window.matchMedia ? window.matchMedia('(hover: none)') : { matches: false };
+  if (row && lightbox) {
+    var lbImg = lightbox.querySelector('img');
+    var lbBg = lightbox.querySelector('.lightbox-bg');
+    var lbClose = lightbox.querySelector('.lightbox-close');
+    var thumb = null;
+    var closing = false;
+    var shots = Array.prototype.slice.call(row.querySelectorAll('.shot'));
+
+    var applyMode = function () {
+      var on = touchScreen.matches;
+      row.classList.toggle('zoomable', on);
+      shots.forEach(function (shot) {
+        var badge = shot.querySelector('.zoom-badge');
+        if (on && !badge) {
+          badge = document.createElement('span');
+          badge.className = 'zoom-badge';
+          badge.innerHTML = '<svg aria-hidden="true"><use href="#i-zoom"/></svg>';
+          shot.querySelector('.shot-float').appendChild(badge);
+        } else if (!on && badge) {
+          badge.remove();
+        }
+        if (on) {
+          shot.setAttribute('role', 'button');
+          shot.setAttribute('tabindex', '0');
+          shot.setAttribute('aria-label', 'Open screenshot: ' + shot.querySelector('img').alt);
+        } else {
+          shot.removeAttribute('role');
+          shot.removeAttribute('tabindex');
+          shot.removeAttribute('aria-label');
+        }
+      });
+    };
+    applyMode();
+    if (touchScreen.addEventListener) touchScreen.addEventListener('change', applyMode);
+
+    // where the big image has to start from so it looks like the small one
+    var offsetFrom = function (el) {
+      var a = el.getBoundingClientRect();
+      var b = lbImg.getBoundingClientRect();
+      return 'translate(' + (a.left - b.left) + 'px, ' + (a.top - b.top) + 'px) scale(' + a.width / b.width + ')';
+    };
+
+    var open = function (shot) {
+      thumb = shot.querySelector('img');
+      lbImg.src = thumb.currentSrc || thumb.src;
+      lbImg.alt = thumb.alt;
+      lightbox.hidden = false;
+      document.documentElement.classList.add('lb-open');
+      lbClose.focus({ preventScroll: true });
+      try { history.pushState({ cairnLightbox: true }, ''); } catch (err) {}
+      if (reduce || !lbImg.animate) return;
+      var run = function () {
+        lbImg.animate([{ transform: offsetFrom(thumb) }, { transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' });
+        lbBg.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 320, easing: 'ease-out' });
+        lbClose.animate([{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }], { duration: 320, delay: 120, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'backwards' });
+      };
+      if (lbImg.complete) run(); else lbImg.onload = function () { lbImg.onload = null; run(); };
+    };
+
+    var close = function (fromHistory) {
+      if (lightbox.hidden || closing) return;
+      closing = true;
+      var done = function () {
+        lightbox.hidden = true;
+        document.documentElement.classList.remove('lb-open');
+        closing = false;
+        if (thumb) thumb.closest('.shot').focus({ preventScroll: true });
+      };
+      if (!fromHistory && history.state && history.state.cairnLightbox) {
+        try { history.back(); } catch (err) {}
+      }
+      if (reduce || !lbImg.animate) return done();
+      var anim = lbImg.animate([{ transform: 'none' }, { transform: offsetFrom(thumb) }], { duration: 320, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+      lbBg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: 'ease-in', fill: 'forwards' });
+      lbClose.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 160, fill: 'forwards' });
+      anim.onfinish = function () {
+        done();
+        lightbox.getAnimations && lightbox.getAnimations({ subtree: true }).forEach(function (a) { a.cancel(); });
+      };
+    };
+
+    shots.forEach(function (shot) {
+      shot.addEventListener('click', function () {
+        if (row.classList.contains('zoomable')) open(shot);
+      });
+      shot.addEventListener('keydown', function (e) {
+        if (row.classList.contains('zoomable') && (e.key === 'Enter' || e.key === ' ')) {
+          e.preventDefault();
+          open(shot);
+        }
+      });
+    });
+    lightbox.addEventListener('click', function () { close(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') close(false);
+    });
+    window.addEventListener('popstate', function () { close(true); });
   }
-  function openFaq(d) {
+
+  // FAQ works as an accordion: opening one answer closes the others. Every click takes over from
+  // whatever animation is running, so fast clicking never leaves two answers open.
+  var faqs = Array.prototype.slice.call(document.querySelectorAll('.faq details'));
+  var running = [];
+  function setFaq(d, open) {
+    var i = faqs.indexOf(d);
     var body = d.querySelector('.faq-a');
+    d.classList.toggle('is-open', open);
+    if (reduce || !body.animate) {
+      d.open = open;
+      return;
+    }
+    // start from the height it has on screen right now, even halfway through an animation
+    var from = d.open ? body.getBoundingClientRect().height : 0;
+    var fromOpacity = d.open ? parseFloat(getComputedStyle(body).opacity) : 0;
+    if (running[i]) running[i].cancel();
     d.open = true;
-    if (reduce || !body.animate) return;
-    d.dataset.busy = '1';
-    var anim = body.animate({ height: ['0px', body.offsetHeight + 'px'], opacity: [0, 1] }, { duration: 380, easing: 'cubic-bezier(.2,.8,.2,1)' });
-    anim.onfinish = function () { delete d.dataset.busy; };
+    var to = open ? body.getBoundingClientRect().height : 0;
+    var anim = body.animate(
+      { height: [from + 'px', to + 'px'], opacity: [fromOpacity, open ? 1 : 0] },
+      { duration: open ? 380 : 300, easing: open ? 'cubic-bezier(.2,.8,.2,1)' : 'cubic-bezier(.4,0,.2,1)' }
+    );
+    running[i] = anim;
+    anim.onfinish = function () {
+      running[i] = null;
+      if (!open) d.open = false;
+    };
   }
   faqs.forEach(function (d) {
     d.querySelector('summary').addEventListener('click', function (e) {
       e.preventDefault();
-      if (d.dataset.busy) return;
-      if (d.open) return closeFaq(d);
-      faqs.forEach(function (other) { if (other !== d && other.open && !other.dataset.busy) closeFaq(other); });
-      openFaq(d);
+      var open = !d.classList.contains('is-open');
+      if (open) faqs.forEach(function (other) { if (other !== d && other.classList.contains('is-open')) setFaq(other, false); });
+      setFaq(d, open);
     });
   });
 

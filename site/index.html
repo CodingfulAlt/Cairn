@@ -83,6 +83,8 @@
     <symbol id="i-spark" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 3.5 12.4 9l5.1 1.9-5.1 1.9-1.9 5.2-1.9-5.2-5.1-1.9L8.6 9Z"/><path d="M18.5 15v5M16 17.5h5"/></g></symbol>
     <symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="3"/><path d="M10.5 18h3"/></g></symbol>
     <symbol id="i-code" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7.5-4.5 4.5L8 16.5M16 7.5l4.5 4.5-4.5 4.5M13.5 4.5l-3 15"/></g></symbol>
+    <symbol id="i-zoom" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5M10.5 7.8v5.4M7.8 10.5h5.4"/></g></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="m6.5 6.5 11 11M17.5 6.5l-11 11"/></symbol>
     <symbol id="i-help" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 0 1 4.9.7c0 1.7-2.5 2.1-2.5 3.7M12 17h.01"/></g></symbol>
   </defs>
 </svg>
@@ -112,12 +114,12 @@
       <div class="hero-text">
         <p class="eyebrow" data-reveal>Free · Private · Android</p>
         <h1 id="hero-title" data-reveal style="--d:.08s"><span class="tagline">Stack small wins.</span> <span class="h1-sub">Cairn is a free habit tracker for Android that keeps your data on your phone.</span></h1>
-        <p class="lead" data-reveal style="--d:.16s">Check in with one tap, keep honest streaks and watch weeks of progress pile up. No ads, no account, no tracking.</p>
         <div class="actions" data-reveal style="--d:.24s">
           <a class="btn btn-red" href="https://github.com/CodingfulAlt/Cairn/releases/latest" data-dl><svg aria-hidden="true"><use href="#i-download"/></svg>Download APK</a>
           <a class="btn btn-ghost" href="https://github.com/CodingfulAlt/Cairn"><svg aria-hidden="true"><use href="#i-github"/></svg>View on GitHub</a>
         </div>
         <p class="meta" data-reveal style="--d:.3s"><span data-version>Latest version</span> · Android 8.0+ · <span data-size>about 2 MB</span> · Free</p>
+        <p class="lead" data-reveal style="--d:.34s">Check in with one tap, keep honest streaks and watch weeks of progress pile up. No ads, no account, no tracking.</p>
         <div class="term" data-reveal data-type style="--d:.36s">
           <button class="copy" type="button" data-copy>Copy</button>
           <p><span class="pr">~ $</span> <span class="cmd">adb install <span data-file>Cairn.apk</span></span></p>
@@ -282,6 +284,12 @@
     </nav>
   </div>
 </footer>
+
+<div class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Screenshot">
+  <div class="lightbox-bg"></div>
+  <img alt="">
+  <button class="lightbox-close" type="button" aria-label="Close"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+</div>
 
 <nav class="dock" aria-label="Sections">
   <span class="dock-pill" aria-hidden="true"></span>
