@@ -258,25 +258,25 @@ button { font: inherit; color: inherit; }
   .icon-link { width: 36px; height: 36px; }
   .top .btn-sm { padding: 9px 14px; font-size: 13.5px; }
 
-  .hero { padding-block: 22px 8px; }
-  /* headline first, then the banner, then the text and the button */
-  .hero-in { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
-  .hero-text, .hero h1 { display: contents; }
-  .hero .eyebrow { order: 1; }
-  .tagline { order: 2; margin-top: 10px; }
-  .hero-art { order: 3; margin-top: 22px; }
-  .h1-sub { order: 4; }
-  .hero .actions { order: 5; }
-  .hero .meta { order: 6; }
-  .m-banner { height: 84px; padding: 0 12px 0 20px; border-radius: 18px; }
-  .m-word { font-size: 30px; }
-  .m-word small { margin-top: 6px; font-size: 10px; }
-  .m-stones { width: 88px; height: 61px; }
+  /* the first screen: big stones on red that fades into the page, fills the screen above the dock */
+  .hero { min-height: calc(100vh - 61px); min-height: calc(100svh - 61px); padding-block: 28px 96px;
+    background: linear-gradient(180deg, #D63A2F 0%, #C2352B 34%, #6E2420 68%, var(--bg) 100%); }
+  .hero .trail path { stroke: #FFFFFF; stroke-opacity: .12; }
+  .hero-in { gap: 20px; }
+  .hero-art { order: -1; }
+  .m-banner { height: 158px; justify-content: center; padding: 0; background: none; border: 0; box-shadow: none; }
+  .m-word, .m-trail { display: none; }
+  .m-stones { width: 228px; height: 158px; filter: drop-shadow(0 16px 20px rgba(80, 14, 8, .45)); }
   .eyebrow { font-size: 11.5px; }
+  .hero .eyebrow { color: rgba(255, 255, 255, .85); }
   .hero h1 { margin-top: 12px; }
-  .tagline { font-size: 42px; line-height: .95; }
-  .h1-sub { margin-top: 18px; font-size: 17px; font-weight: 600; line-height: 1.45; color: #D9D8D3; }
-  .hero .lead, .hero .term { display: none; }
+  .tagline { font-size: 42px; line-height: .95; color: #FFFFFF; }
+  .h1-sub { margin-top: 14px; font-size: 17px; font-weight: 600; line-height: 1.45; color: rgba(255, 255, 255, .92); }
+  .hero .lead { display: none; }
+  .hero .btn-red, .hero .btn-red:hover { background: #FFFFFF; color: var(--red); box-shadow: 0 14px 26px -14px rgba(0, 0, 0, .5); }
+  .hero .btn-ghost { box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .65); color: #FFFFFF; }
+  .hero .meta { color: rgba(255, 255, 255, .7); }
+  .hero .term { margin-top: 24px; }
   .hero .actions { margin-top: 24px; gap: 10px; flex-wrap: nowrap; }
   .hero .actions .btn { justify-content: center; padding: 14px 16px; font-size: 15px; }
   .hero .actions .btn-red { flex: 1.5 1 0; }
@@ -285,7 +285,6 @@ button { font: inherit; color: inherit; }
   .meta { margin-top: 12px; font-size: 12px; }
 
   .section { padding-block: 52px; }
-  #features { padding-top: 36px; }
   .section h2 { margin-top: 10px; font-size: 30px; }
   .features { margin-top: 24px; gap: 0; }
   .features li { padding: 20px 0; }
@@ -306,6 +305,9 @@ button { font: inherit; color: inherit; }
   .os .actions .btn { flex: 1 1 0; justify-content: center; padding: 13px 12px; font-size: 14.5px; }
   .term { padding: 14px 62px 14px 16px; font-size: 12px; line-height: 1.65; }
   .copy { top: 10px; right: 10px; padding: 4px 8px; font-size: 11px; }
+  /* on phones the box grows line by line with the typing instead of starting at full size */
+  .js .term[data-type]:not(.done) p:not(.shown) { display: none; }
+  .js .term[data-type]:not(.done) { min-height: 50px; }
   .faq-lead { margin-top: 12px; font-size: 15px; }
   .ask { margin-top: 22px; padding: 20px; }
   .ask h3 { font-size: 17px; }

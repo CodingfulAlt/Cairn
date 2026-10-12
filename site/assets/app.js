@@ -36,6 +36,7 @@
     var i = 0;
     line.textContent = '';
     line.classList.add('on', 'typing');
+    line.closest('p').classList.add('shown');
     (function step() {
       line.textContent = text.slice(0, ++i);
       if (i < text.length) {
@@ -52,7 +53,7 @@
     var i = 0;
     (function next() {
       if (i < cmds.length) return typeLine(cmds[i++], next);
-      each('.out', function (o, k) { setTimeout(function () { o.classList.add('on'); }, k * 200); }, term);
+      each('.out', function (o, k) { setTimeout(function () { o.classList.add('on', 'shown'); }, k * 200); }, term);
       setTimeout(function () { term.classList.add('done'); }, 600);
     })();
   }
